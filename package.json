@@ -1,0 +1,24 @@
+{
+  "name": "voice-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zabroski/voice-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zabroski/voice-backend/issues"
+  },
+  "homepage": "https://github.com/zabroski/voice-backend#readme",
+  "dependencies": {
+    "@google-cloud/speech": "^3.5.4",
+    "express": "^4.17.1"
+  }
+}
