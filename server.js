@@ -2,16 +2,23 @@ const express = require('express')
 const speech = require('@google-cloud/speech');
 const fs = require('fs');
 
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
+
+app.use(express.json());
+app.use(express.urlencoded())
 
 
 app.get('/', (req, res) => res.send('Hello this is a voice app!'))
 
-app.post('/voice-app', async (req, res) => {
+app.post('/transform-audio-to-text', async (req, res) => {
 
+  // console.log("body is: ", req.body);
   const client = new speech.SpeechClient();
-  const fileName = './issouf/235.wav';
+
+  // const audioBytes = req.body.base64Audio.split(';base64,').pop();
+
+  const fileName = './issouf/download.wav';
   const file = fs.readFileSync(fileName);
   const audioBytes = file.toString('base64');
 
@@ -21,8 +28,10 @@ app.post('/voice-app', async (req, res) => {
 
   const config = {
     encoding: 'LINEAR16',
-    // sampleRateHertz: 48000L,
+    sampleRateHertz: 8000,
     languageCode: 'en-US',
+    enableWordConfidence: true,
+    enableWordTimeOffsets: true
   };
   const request = {
     audio: audio,
