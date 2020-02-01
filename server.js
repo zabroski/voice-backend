@@ -1,5 +1,5 @@
 const express = require('express')
-const speech = require('@google-cloud/speech');
+const speech = require('@google-cloud/speech').v1p1beta1;
 const fs = require('fs');
 
 const app = express();
@@ -10,10 +10,22 @@ app.use(express.urlencoded({limit: '150mb'}));
 
 app.get('/', (req, res) => res.send('Hello this is a voice app!'))
 
+
+// app.post('/get-languages' , async (req ,res) =>) {
+
+// }
+
+
+
+
+
+
+
 app.post('/transform-audio-to-text', async (req, res) => {
 
   const client = new speech.SpeechClient();
   const audioBytes = req.body.base64Audio.split(';base64,').pop();
+  //const language = req.body.language || 'en-US';
 
   const audio = {
     content: audioBytes,
@@ -21,12 +33,12 @@ app.post('/transform-audio-to-text', async (req, res) => {
 
   const config = {
     encoding: 'LINEAR16',
-    languageCode: 'en-US',
-    enableWordConfidence: true,
+    languageCode: language, //fr-FR
     enableWordTimeOffsets: true,
+    enableWordConfidence: true,
     audioChannelCount: 2
   };
-  
+
   const request = {
     audio: audio,
     config: config,
