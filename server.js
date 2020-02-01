@@ -25,7 +25,7 @@ app.post('/transform-audio-to-text', async (req, res) => {
 
   const client = new speech.SpeechClient();
   const audioBytes = req.body.base64Audio.split(';base64,').pop();
-  //const language = req.body.language || 'en-US';
+  //const language =
 
   const audio = {
     content: audioBytes,
@@ -33,7 +33,7 @@ app.post('/transform-audio-to-text', async (req, res) => {
 
   const config = {
     encoding: 'LINEAR16',
-    languageCode: language, //fr-FR
+    languageCode: 'en-US', //fr-FR
     enableWordTimeOffsets: true,
     enableWordConfidence: true,
     audioChannelCount: 2
