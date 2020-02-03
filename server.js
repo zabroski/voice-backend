@@ -10,30 +10,23 @@ app.use(express.urlencoded({limit: '150mb'}));
 
 app.get('/', (req, res) => res.send('Hello this is a voice app!'))
 
-
-// app.post('/get-languages' , async (req ,res) =>) {
-
-// }
-
-
-
-
-
-
-
 app.post('/transform-audio-to-text', async (req, res) => {
 
   const client = new speech.SpeechClient();
   const audioBytes = req.body.base64Audio.split(';base64,').pop();
-  //const language =
+  const language = req.body.language || 'en-US';
+
+  console.log(req.body.language, " <----- ");
 
   const audio = {
     content: audioBytes,
   };
 
+  console.log("my language is: ", language);
+
   const config = {
     encoding: 'LINEAR16',
-    languageCode: 'en-US', //fr-FR
+    languageCode: language, //fr-FR
     enableWordTimeOffsets: true,
     enableWordConfidence: true,
     audioChannelCount: 2
